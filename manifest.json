@@ -1,0 +1,16 @@
+{
+  "platform-version": "2.0",
+  "product": {
+    "freshdesk": {
+      "location": {
+        "ticket_requester_info": {
+          "url": "index.html",
+          "icon": "logo.png"
+        }
+      }
+    }
+  },
+  "whitelisted-domains": [
+    "https://api.dialogflow.com"
+  ]
+}

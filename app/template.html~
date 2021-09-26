@@ -1,0 +1,484 @@
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="https://static.freshdev.io/fdk/2.0/assets/fresh_client.js"></script>
+<script src='https://code.responsivevoice.org/responsivevoice.js'></script>
+<title>
+Freshdesk App
+</title>
+<link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+</head>
+<body onload="AAssistInit();SpeechStart();">
+<div id="aib-speech">
+    Speak Now
+</div>
+<div class="aib-0" >
+<div class="full-span content-center" style="position:relative" id="lucy-drawarea">
+<div id="lucy-converse lucy-start" >
+<div id="conversations">
+<div class="pa-chat chat-agent">
+<div class="agent-chat">
+Hi Lucy
+</div>
+</div>
+<div class="pa-chat chat-lucy">
+<div class="lucy-chat">
+Hi, how may i help you?
+</div>
+</div>
+<div class="pa-chat chat-agent">
+<div class="agent-chat">
+Can you analyse my performance and show me how have i performed?
+</div>
+</div>
+</div>
+</div>
+<form name="agent_send" action="#" id="chat-form" onsubmit="return AAssistMe(this);">
+<input id="agent-msgbox" placeholder="How can i help you ?" name="chat_text">
+<button id="agent-msgsend" type="submit"></button>
+</form>
+</div>
+</div>
+<style>
+#aib-speech
+{
+    position: fixed;
+    top: -2px;
+    left:30%;
+    font-size: 11px;
+    color: #505050;
+    box-shadow: 1px 1px 1px 1px lightgray;
+    border-radius: 200px;
+    background: #fff;
+    padding: 5px;
+}
+#agent-msgsend
+{
+    position: fixed;
+    right: 2;
+    bottom: 0;
+    z-index: 999;
+    height: 25px;
+    width: 25px;
+    background-color: transparent;
+    border: 0;
+    color: #707070;
+    background-image: url(send.png);
+}
+#agent-msgbox
+{
+    position: fixed;
+    left: 2;
+    bottom: 0;
+    z-index: 999;
+    height: 20px;
+    width: 80%;
+    border: 0;
+    color:#707070;
+    background: transparent;
+    border-bottom: 2px solid lightgray;
+}
+#agent-msgbox:focus
+{
+	border:0;
+outline:0;
+    border-bottom: 2px solid #909090;
+}
+.pa-chat
+{
+width:100%;
+display:block;
+height:auto;
+}
+.chat-agent
+{
+text-align:right;
+}
+.chat-lucy
+{
+text-align:left;
+}
+.agent-chat , .lucy-chat
+{
+margin:3px 0px;
+border-radius:5px;
+padding:4px;
+font-size:13px;
+color:#707070;
+text-align:left;
+display:inline-block;
+width:auto;
+box-shadow:0px 0px 2px 2px #F5F5F5;
+max-width:50%;
+}
+.agent-chat
+{
+background:#dcdcdc;
+}
+.lucy-chat
+{
+background:#faebd7;
+}
+#conversations
+{
+margin:2px;
+height:88%;
+overflow:auto;
+}
+#lucy-status
+{
+    position: absolute;
+    left: 55px;
+    top: 2px;
+    background: #FFF;
+    box-shadow: 0px 0px 5px 2px #F5F5F5;
+    width: 130px;
+    height: 40px;
+    visibility: hidden;
+    transition: all 500ms ease;
+    transition-delay: 200ms;
+}
+
+.lucy-active
+{
+bottom: 79% !important;
+box-shadow: 0px 0px 2px 2px lightgray !important;
+
+}
+.lucy-start
+{
+display:block !important;
+bottom:0px !important;
+}
+#lucy-converse
+{
+width:100%;
+height:80%;
+background:#F5F5F5;
+position:absolute;
+bottom:-100%;
+display:none;
+z-index:998;
+transition:all 500ms linear;
+}
+#lucy-assist
+{
+z-index:999;
+border-radius:100%;
+background:#FFF;
+width:30px;
+height:30px;
+padding:7px;
+position:absolute;
+bottom:10%;
+transition:all 200ms linear;
+left: 10%;
+}
+#lucy-assist img
+{
+animation-name:lucy_focus;
+animation-duration:5s;
+animation-iteration-count:infinite;
+}
+@keyframes lucy_focus
+{
+	0%   { transform:scale(1); }
+	25%  { transform:scale(0.5); }
+	50%  { transform:rotate(180deg) ; }
+	75%  { transform:scale(1); }
+	100% { transform:rotate(180deg); }
+}
+.aib-0
+{
+position:fixed;
+bottom:0px;
+right:3px;
+width:100%;
+height:90%;
+}
+#aa-b0
+{
+width:100%;
+height:auto;
+}
+#aa-b1
+{
+width:550px;
+height:280px;
+}
+#agent-analytics
+{
+background:#F5F5F5;
+height:280px;
+}
+.tbox-padding
+{
+padding:10px;
+}
+.header-fsize
+{
+font-size:25px;
+}
+#fd-2
+{
+height:400px;
+min-width:650px;
+max-width:700px;
+margin:10% auto;
+}
+#fd-1{
+position:fixed;
+top:0;
+left:0;
+background:rgba(0,0,0,0.3);
+}
+.full-span
+{
+width:100%;
+height:100%;
+}
+.content-center
+{
+text-align:center;
+}
+.content-left
+{
+text-align:left;
+}
+.content-right
+{
+text-align:right;
+}
+.b-inline
+{
+display:inline;
+}
+.b-inlineBlock
+{
+display:inline-block;
+}
+.b-block:
+{
+display:block;
+}
+.bg-white
+{
+background:#fff;
+}
+.shadow-t1
+{
+box-shadow:0px 0px 5px 3px #909090;
+}
+body
+{
+font-family: 'Muli', sans-serif;
+}
+.h-w-auto
+{
+width:auto;
+height:auto;
+}
+.href
+{
+font-size:13px;
+color:#1E90FF;
+letter-spacing:1px;
+}
+a{
+text-decoration:none;
+}
+.filter-ref
+{
+margin:0px 20px;
+padding:20px 0px;
+text-align:center;
+}
+.filter-ref:hover
+{
+color:blue;
+}
+.filter-ref.filter-active
+{
+border-bottom:2px solid #1E90FF;
+}
+</style>
+<script>
+var lucy = document.getElementById("lucy-assist");
+var converse = document.getElementById("lucy-converse");
+var lstatus = document.getElementById("lucy-status");
+var msgform = document.getElementById("chat-form");
+var conversations = document.getElementById("conversations");
+var aib_speech = document.getElementById("aib-speech");
+var speaking = false;
+function AAssistMe(form_obj)
+{
+var query = form_obj.chat_text.value;
+agent_chat(query);
+$('#conversations').scrollTop($('#conversations')[0].scrollHeight);
+$.ajax({
+        url: 'https://api.dialogflow.com/v1/query?v=20170712&query='+query+'&lang=en&sessionId=1ad06e62-b084-4373-8c50-6a787592a7c4&timezone=Asia/Calcutta',
+        beforeSend: function(xhr) {
+             xhr.setRequestHeader("Authorization", "Bearer 8c6a5cf59d824dedb69bdc110ee8873d")
+        }, success: function(bot_response){
+            response = bot_response.result.fulfillment.speech;
+		lucy_chat(response);
+	    $('#conversations').scrollTop($('#conversations')[0].scrollHeight);
+	    SpeechStop();
+	    responsiveVoice.speak(response,"Australian Female" , {
+	    	onend : function(){
+	    		SpeechStart();
+	    	}
+	    });
+        }
+})
+
+return false;
+}
+var recognition;
+
+$(document).ready( function() {
+    app.initialized()
+        .then(function(_client) {
+          var client = _client;
+client.events.on('app.activated',
+            function() {
+
+	  client.data.get("ticket").then (
+    function(data) {
+	console.log(data);
+data = data.ticket;
+	if(data.stats.resolved_at == null || data.stats.closed_at == null)
+	{
+		respond ="Its your time to resolve this ticket. Happy Supporting!";
+		lucy_chat(respond);
+	    responsiveVoice.speak(respond,"Australian Female" , {
+	    	onend : function(){
+	    		SpeechStart();
+	    	}
+	    });
+
+	}
+	else
+	{
+			closed_at = data.stats.closed_at;
+		if(closed_at != null)
+		{
+
+		var diff = daysDiff(parseDate(GetDate(new Date(closed_at))), parseDate(GetDate(new Date())));
+			respond="This ticket has been closed "+diff+" days back ";
+			lucy_chat(respond);
+			responsiveVoice.speak(respond,"Australian Female" , {
+	    	onend : function(){
+	    		SpeechStart();
+	    	}
+	    });
+
+		}
+	}
+    },
+    function(error) {
+    }
+    );
+}
+);
+
+    });
+});
+
+
+function AAssistInit(do_what)
+{
+
+	recognition = new (webkitSpeechRecognition || SpeechRecognition)();
+recognition.lang = 'en-US';
+recognition.interimResults = false;
+recognition.maxAlternatives = 1;
+[
+		 'onaudiostart',
+		 'onaudioend',
+		 'onend',
+		 'onerror',
+		 'onnomatch',
+		 'onresult',
+		 'onsoundstart',
+		 'onsoundend',
+		 'onspeechend',
+		 'onstart'
+		].forEach(function(eventName) {
+			recognition[eventName] = function(e) {
+			//	console.log(eventName, e);
+			};
+		});
+
+
+recognition.onresult = function(event) {
+		var voice_input = event.results[0][0].transcript;
+		console.log(voice_input);
+	    msgform.chat_text.value = voice_input;
+	    var res  = AAssistMe(msgform);
+};
+
+recognition.onend = function(event){
+	SpeechStart();
+};
+recognition.onaudioend = function(event){
+	aib_speech.innerHTML = "Recognizing";
+};
+}
+function SpeechStart()
+{
+//	recognition.start();
+	aib_speech.innerHTML = "Speak Now";
+}
+function SpeechStop()
+{
+//	recognition.stop();
+	aib_speech.innerHTML = "Please Wait";
+}
+function lucy_chat(response)
+{
+            var lpa_chat = document.createElement("div");
+	    lpa_chat.className = "pa-chat chat-lucy";
+	    var lucy_chat = document.createElement("div");
+	    lucy_chat.className = "lucy-chat";
+	    lucy_chat.innerHTML = response;
+	    lpa_chat.appendChild(lucy_chat);
+	    conversations.appendChild(lpa_chat);
+}
+function agent_chat(response)
+{
+	var pa_chat = document.createElement("div");
+	pa_chat.className = "pa-chat chat-agent";
+	var agent_chat = document.createElement("div");
+	agent_chat.className = "agent-chat";
+	agent_chat.innerHTML = response;
+	pa_chat.appendChild(agent_chat);
+	conversations.appendChild(pa_chat);
+}
+function parseDate(str) {
+    var mdy = str.split('/');
+    return new Date(mdy[2], mdy[0]-1, mdy[1]);
+}
+
+function daysDiff(first, second) {
+    return Math.round((second-first)/(1000*60*60*24));
+}
+function GetDate(ct)
+{
+//var today = new Date();
+var dd = ct.getDate();
+var mm = ct.getMonth()+1; //January is 0!
+var yyyy = ct.getFullYear();
+if(dd<10) {
+    dd = '0'+dd
+} 
+if(mm<10) {
+    mm = '0'+mm
+} 
+ct = mm + '/' + dd + '/' + yyyy;
+return ct;
+}
+</script>
+</body>
+</html>
+
